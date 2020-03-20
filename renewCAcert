@@ -1,0 +1,30 @@
+#!/bin/sh
+# @version $Id: renewCAcert 911 2018-10-31 21:51:24Z anrdaemon $
+
+# $0 [ days <num> ]
+
+test "$( basename "$0" )" = "minica.sh" || {
+    "$( dirname "$( readlink -e "$0" )" )/minica.sh" "$( basename "$0" )" "$@"
+    exit $?
+  }
+
+MCA_DATE=$( date +%Y%m%d-%H%M )
+MCA_CERT="$HOME/store/ca-$MCA_DATE.crt"
+
+test -f "$HOME/ca.key" || {
+  echo "mca: Unable to find the key. Aborting."
+  exit 2
+}
+
+trap 'rm "$MCA_CERT" "$HOME/ca.crt" 2> /dev/null' HUP INT ABRT TERM
+
+openssl req -new -key "$HOME/ca.key" \
+  -x509 -extensions x509_ca -out "$MCA_CERT" -days $MCA_KEYAGE "$@" || exit 1
+
+ln -fs "$MCA_CERT" "$HOME/ca.crt" || {
+  echo "You will need to create a symbolic link"
+  echo " from '$MCA_CERT'"
+  echo " to '$HOME/ca.crt'"
+  echo " to finish initialization."
+  exit 0
+}

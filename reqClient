@@ -1,0 +1,33 @@
+#!/bin/sh
+# @version $Id: reqClient 919 2018-11-01 20:17:20Z anrdaemon $
+
+# $0 [ rsa <keylen> ] [ key <path> ] [ <subjectAltName> ]
+
+test "$( basename "$0" )" = "minica.sh" || {
+    "$( dirname "$( readlink -e "$0" )" )/minica.sh" "$( basename "$0" )" "$@"
+    exit $?
+  }
+
+MCA_DATE=$( date +%Y%m%d-%H%M )
+MCA_TMPREQ=$( mktemp )
+MCA_TMPKEY=$( mktemp )
+
+MCA_SAN="$( set -- email:copy "$@"; IFS=,; echo "$*" )"
+
+if [ "$MCA_KEY" ]; then
+  set -- -new -key "$MCA_KEY"
+else
+  set -- -newkey $MCA_KEYTYPE:$MCA_KEYLEN -keyout "$MCA_TMPKEY"
+fi
+
+trap 'rm "$MCA_TMPKEY" "$MCA_TMPREQ" 2> /dev/null' EXIT HUP INT ABRT TERM
+
+SSLSAN="$MCA_SAN" openssl req "$@" -extensions x509_client_req -out "$MCA_TMPREQ" || {
+  echo "mca: Failed to create a key."
+  exit 1
+}
+
+MCA_NAME="$( _name req "$MCA_TMPREQ" )"
+
+test "$MCA_KEY" || mv "$MCA_TMPKEY" "$( mktemp "$HOME/store/keys/${MCA_NAME}_${MCA_DATE}_XXXXXXXX.key" )"
+mv "$MCA_TMPREQ" "$( mktemp "$HOME/store/${MCA_NAME}_${MCA_DATE}_XXXXXXXX.csr" )"

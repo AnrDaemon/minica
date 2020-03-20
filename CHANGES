@@ -1,0 +1,397 @@
+------------------------------------------------------------------------
+r1046 | anrdaemon | 2020-03-20 20:26:05 +0300 (Fri, 20 Mar 2020) | 2 lines
+
+* Fixed signClient/signServer wrappers' invocation of parent handler
+
+------------------------------------------------------------------------
+r928 | anrdaemon | 2018-11-02 03:40:59 +0300 (Fri, 02 Nov 2018) | 3 lines
+
+* signCert: Fixed certificate signing blindmode.
+* Fixed server/client certificate signing wrappers.
+
+------------------------------------------------------------------------
+r927 | anrdaemon | 2018-11-02 03:12:36 +0300 (Fri, 02 Nov 2018) | 2 lines
+
+* Rewrote certificate signing to use common code.
+
+------------------------------------------------------------------------
+r926 | anrdaemon | 2018-11-02 02:37:47 +0300 (Fri, 02 Nov 2018) | 2 lines
+
+* stubModule: Simplify module wrapping.
+
+------------------------------------------------------------------------
+r925 | anrdaemon | 2018-11-02 02:19:10 +0300 (Fri, 02 Nov 2018) | 2 lines
+
++ minica.sh: Added version function.
+
+------------------------------------------------------------------------
+r924 | anrdaemon | 2018-11-02 02:00:32 +0300 (Fri, 02 Nov 2018) | 3 lines
+
+* minica.sh: Relaxed module search/execution condition.
+  Preparing for MCSC pattern backport.
+
+------------------------------------------------------------------------
+r923 | anrdaemon | 2018-11-02 01:59:30 +0300 (Fri, 02 Nov 2018) | 3 lines
+
+* minica.sh: Suppressed error condition from attempting to initialize an
+ already initialized workspace.
+
+------------------------------------------------------------------------
+r922 | anrdaemon | 2018-11-02 01:56:42 +0300 (Fri, 02 Nov 2018) | 2 lines
+
+* minica.sh: Worked around relative symlink resolution in profile reader.
+
+------------------------------------------------------------------------
+r921 | anrdaemon | 2018-11-02 00:16:12 +0300 (Fri, 02 Nov 2018) | 2 lines
+
+* Unnecessary whitespace change.
+
+------------------------------------------------------------------------
+r920 | anrdaemon | 2018-11-02 00:13:18 +0300 (Fri, 02 Nov 2018) | 2 lines
+
+* minica.sh: Simplified safe name composition from cert/req subject.
+
+------------------------------------------------------------------------
+r919 | anrdaemon | 2018-11-01 23:17:20 +0300 (Thu, 01 Nov 2018) | 2 lines
+
+* reqClient: backport reqServer command line handling improvements
+
+------------------------------------------------------------------------
+r918 | anrdaemon | 2018-11-01 18:49:59 +0300 (Thu, 01 Nov 2018) | 2 lines
+
+* wrap.sh: Normalize readlink usage.
+
+------------------------------------------------------------------------
+r917 | anrdaemon | 2018-11-01 18:49:20 +0300 (Thu, 01 Nov 2018) | 2 lines
+
+* viewRequest: Improved input feed and output verbosity.
+
+------------------------------------------------------------------------
+r916 | anrdaemon | 2018-11-01 17:56:24 +0300 (Thu, 01 Nov 2018) | 2 lines
+
+* minica.sh: Normalize readlink usage.
+
+------------------------------------------------------------------------
+r915 | anrdaemon | 2018-11-01 03:18:26 +0300 (Thu, 01 Nov 2018) | 2 lines
+
+* Improved readlink usage compatibility across the board.
+
+------------------------------------------------------------------------
+r914 | anrdaemon | 2018-11-01 03:17:36 +0300 (Thu, 01 Nov 2018) | 3 lines
+
++ Added validation to request viewing.
+* Only print decoded subject.
+
+------------------------------------------------------------------------
+r913 | anrdaemon | 2018-11-01 01:16:40 +0300 (Thu, 01 Nov 2018) | 2 lines
+
+* Fixed metadata.
+
+------------------------------------------------------------------------
+r912 | anrdaemon | 2018-11-01 01:15:18 +0300 (Thu, 01 Nov 2018) | 2 lines
+
++ Added simple CSR viewer.
+
+------------------------------------------------------------------------
+r911 | anrdaemon | 2018-11-01 00:51:24 +0300 (Thu, 01 Nov 2018) | 2 lines
+
+* Fixed readlink usage.
+
+------------------------------------------------------------------------
+r910 | anrdaemon | 2018-10-31 23:23:25 +0300 (Wed, 31 Oct 2018) | 2 lines
+
+* genCAcert: Fixed final symlink creation.
+
+------------------------------------------------------------------------
+r777 | anrdaemon | 2018-03-28 21:56:21 +0300 (Wed, 28 Mar 2018) | 2 lines
+
+* More direct Subject Alternative Name assignment.
+
+------------------------------------------------------------------------
+r776 | anrdaemon | 2018-03-28 21:14:09 +0300 (Wed, 28 Mar 2018) | 2 lines
+
+* Prevent genCRL from erroring on exit if no publishing configuration is found.
+
+------------------------------------------------------------------------
+r719 | anrdaemon | 2017-12-24 06:08:04 +0300 (Sun, 24 Dec 2017) | 2 lines
+
++ Add debug wrapper.
+
+------------------------------------------------------------------------
+r312 | anrdaemon | 2015-09-18 09:48:14 +0300 (Fri, 18 Sep 2015) | 2 lines
+
++ CRL serial tracking.
+
+------------------------------------------------------------------------
+r311 | anrdaemon | 2015-09-18 08:59:21 +0300 (Fri, 18 Sep 2015) | 2 lines
+
+* CA certificates to $/store/ as well.
+
+------------------------------------------------------------------------
+r302 | anrdaemon | 2015-09-16 15:06:47 +0300 (Wed, 16 Sep 2015) | 2 lines
+
++ genCRL attempt.
+
+------------------------------------------------------------------------
+r300 | anrdaemon | 2015-09-16 09:58:40 +0300 (Wed, 16 Sep 2015) | 3 lines
+
++ CA revoke module.
+- No "renew" for regular certificates - just sign the request anew.
+
+------------------------------------------------------------------------
+r299 | anrdaemon | 2015-09-16 08:18:44 +0300 (Wed, 16 Sep 2015) | 2 lines
+
++ Stub module.
+
+------------------------------------------------------------------------
+r298 | anrdaemon | 2015-09-16 06:11:11 +0300 (Wed, 16 Sep 2015) | 2 lines
+
++ Executable modules.
+
+------------------------------------------------------------------------
+r297 | anrdaemon | 2015-09-16 06:00:49 +0300 (Wed, 16 Sep 2015) | 3 lines
+
++ Usage hits for modules.
++ Minor formatting improvements.
+
+------------------------------------------------------------------------
+r296 | anrdaemon | 2015-09-16 05:46:39 +0300 (Wed, 16 Sep 2015) | 3 lines
+
++ Reinstate missing certificate age specification. 
+  (placeholder until full startdate+age is implemented)
+
+------------------------------------------------------------------------
+r295 | anrdaemon | 2015-09-16 05:44:51 +0300 (Wed, 16 Sep 2015) | 2 lines
+
+- Remove redundant variables assignment. Defaults assigned in profile.
+
+------------------------------------------------------------------------
+r294 | anrdaemon | 2015-09-16 05:44:22 +0300 (Wed, 16 Sep 2015) | 2 lines
+
+- Remove redundant variables assignment. Defaults assigned in profile.
+
+------------------------------------------------------------------------
+r293 | anrdaemon | 2015-09-16 05:43:31 +0300 (Wed, 16 Sep 2015) | 2 lines
+
++ Add spacer after key password prompt.
+
+------------------------------------------------------------------------
+r292 | anrdaemon | 2015-09-16 05:38:01 +0300 (Wed, 16 Sep 2015) | 2 lines
+
+- Remove aliacing for certificate specification.
+
+------------------------------------------------------------------------
+r290 | anrdaemon | 2015-09-15 10:15:42 +0300 (Tue, 15 Sep 2015) | 2 lines
+
++ svn:executable >.< *shrugs*
+
+------------------------------------------------------------------------
+r288 | anrdaemon | 2015-09-14 04:59:10 +0300 (Mon, 14 Sep 2015) | 3 lines
+
++ Properly trap'ing temp files.
+- Do away with too much c*'s. Move files to $/store and keys to $/store/keys.
+
+------------------------------------------------------------------------
+r286 | anrdaemon | 2015-09-14 04:13:41 +0300 (Mon, 14 Sep 2015) | 2 lines
+
++ More sensible PFX export.
+
+------------------------------------------------------------------------
+r285 | anrdaemon | 2015-09-14 03:59:28 +0300 (Mon, 14 Sep 2015) | 2 lines
+
+- Removed DSA key support due to architectural constraints.
+
+------------------------------------------------------------------------
+r284 | anrdaemon | 2015-09-14 03:42:07 +0300 (Mon, 14 Sep 2015) | 2 lines
+
++ Support _name for both certificate and request files.
+
+------------------------------------------------------------------------
+r283 | anrdaemon | 2015-09-13 02:52:42 +0300 (Sun, 13 Sep 2015) | 4 lines
+
++ Ensure clean exit, if symlink creation fails.
++ Rewrite renewal handler to match creation.
++ Allow passing of additional parameters as a workaround for lack of a way to specify precise start/end date.
+
+------------------------------------------------------------------------
+r282 | anrdaemon | 2015-09-13 01:03:09 +0300 (Sun, 13 Sep 2015) | 2 lines
+
+* Fix CN handling in _name to account for optional email.
+
+------------------------------------------------------------------------
+r281 | anrdaemon | 2015-09-12 06:38:16 +0300 (Sat, 12 Sep 2015) | 2 lines
+
+= Equalize the code.
+
+------------------------------------------------------------------------
+r280 | anrdaemon | 2015-09-12 06:32:50 +0300 (Sat, 12 Sep 2015) | 4 lines
+
++ reqServer rewrite along the reqClient lines.
++ Wrest both to actually allow feeding existing keys.
++ subjectAltName for reqClient. Just in case.
+
+------------------------------------------------------------------------
+r278 | anrdaemon | 2015-09-12 03:14:13 +0300 (Sat, 12 Sep 2015) | 2 lines
+
++ Allow passing of additional parameters to openssl, such as start/end date.
+
+------------------------------------------------------------------------
+r276 | anrdaemon | 2015-09-11 13:14:58 +0300 (Fri, 11 Sep 2015) | 2 lines
+
+* Write directly to mktemp-generated destination names where possible.
+
+------------------------------------------------------------------------
+r275 | anrdaemon | 2015-09-11 10:31:53 +0300 (Fri, 11 Sep 2015) | 2 lines
+
++ Wrap parser into set -e. Should help with unexpected parses.
+
+------------------------------------------------------------------------
+r274 | anrdaemon | 2015-09-11 10:29:34 +0300 (Fri, 11 Sep 2015) | 2 lines
+
++ Canonicalize input key/cert to full names.
+
+------------------------------------------------------------------------
+r273 | anrdaemon | 2015-09-11 09:59:11 +0300 (Fri, 11 Sep 2015) | 2 lines
+
++ Allow specifying certificate name.
+
+------------------------------------------------------------------------
+r272 | anrdaemon | 2015-09-11 09:54:34 +0300 (Fri, 11 Sep 2015) | 2 lines
+
++ "days" instead of "age" to be consistent with OpenSSL itself.
+
+------------------------------------------------------------------------
+r271 | anrdaemon | 2015-09-11 09:53:35 +0300 (Fri, 11 Sep 2015) | 3 lines
+
+- Pass key name unedited to modules.
++ Allow use of existing key in Client request generation.
+
+------------------------------------------------------------------------
+r270 | anrdaemon | 2015-09-11 05:43:05 +0300 (Fri, 11 Sep 2015) | 2 lines
+
++ req/sign typical Client certificate.
+
+------------------------------------------------------------------------
+r269 | anrdaemon | 2015-09-11 05:38:55 +0300 (Fri, 11 Sep 2015) | 2 lines
+
+* Fix potential `test ... -a ...` ambiguity.
+
+------------------------------------------------------------------------
+r268 | anrdaemon | 2015-09-09 19:32:15 +0300 (Wed, 09 Sep 2015) | 3 lines
+
+= Finish moving stuff around.
++ Default data for config.
+
+------------------------------------------------------------------------
+r264 | anrdaemon | 2015-09-09 13:44:19 +0300 (Wed, 09 Sep 2015) | 2 lines
+
++ Single-step CN transformation.
+
+------------------------------------------------------------------------
+r263 | anrdaemon | 2015-09-09 12:39:21 +0300 (Wed, 09 Sep 2015) | 2 lines
+
++ Fix portability issue in `tr` filter set.
+
+------------------------------------------------------------------------
+r262 | anrdaemon | 2015-09-09 12:36:09 +0300 (Wed, 09 Sep 2015) | 3 lines
+
++ Fix "15: test: Illegal number:" notice.
++ Correct fallback notice for unimplemented commands.
+
+------------------------------------------------------------------------
+r261 | anrdaemon | 2015-09-09 11:55:31 +0300 (Wed, 09 Sep 2015) | 3 lines
+
++ Safety trap.
++ Symlink creation notice.
+
+------------------------------------------------------------------------
+r260 | anrdaemon | 2015-09-09 11:49:50 +0300 (Wed, 09 Sep 2015) | 2 lines
+
++ Remove force conversion. It's unsafe.
+
+------------------------------------------------------------------------
+r259 | anrdaemon | 2015-09-08 05:06:32 +0300 (Tue, 08 Sep 2015) | 2 lines
+
++ Draft `init` command.
+
+------------------------------------------------------------------------
+r257 | anrdaemon | 2015-09-07 08:05:40 +0300 (Mon, 07 Sep 2015) | 2 lines
+
++ Name-from-request-subject function. Almost safe.
+
+------------------------------------------------------------------------
+r256 | anrdaemon | 2015-09-07 06:02:50 +0300 (Mon, 07 Sep 2015) | 2 lines
+
+- Extra space cleanup.
+
+------------------------------------------------------------------------
+r255 | anrdaemon | 2015-09-07 06:00:23 +0300 (Mon, 07 Sep 2015) | 2 lines
+
++ Lock wrapper.
+
+------------------------------------------------------------------------
+r254 | anrdaemon | 2015-09-07 03:50:04 +0300 (Mon, 07 Sep 2015) | 3 lines
+
++ Check for key presence in renewCAcert.
++ Spelling.
+
+------------------------------------------------------------------------
+r253 | anrdaemon | 2015-09-07 03:44:27 +0300 (Mon, 07 Sep 2015) | 2 lines
+
++ Formatting and spelling for genCAcert.
+
+------------------------------------------------------------------------
+r252 | anrdaemon | 2015-09-07 03:26:53 +0300 (Mon, 07 Sep 2015) | 3 lines
+
++ Options parser moved into core file.
+- Bogus exit $? removed.
+
+------------------------------------------------------------------------
+r249 | anrdaemon | 2015-09-06 23:42:25 +0300 (Sun, 06 Sep 2015) | 2 lines
+
++ Move ca-profile to a sample file. As it is.
+
+------------------------------------------------------------------------
+r123 | anrdaemon | 2014-11-09 07:49:47 +0300 (Sun, 09 Nov 2014) | 3 lines
+
+* Small rewrites to better accomodate for the needs.
+  Though, some of them should be reverted.
+
+------------------------------------------------------------------------
+r92 | anrdaemon | 2014-02-09 12:04:40 +0300 (Sun, 09 Feb 2014) | 2 lines
+
++ Better translation of prohibited characters.
+
+------------------------------------------------------------------------
+r91 | anrdaemon | 2014-02-09 08:32:57 +0300 (Sun, 09 Feb 2014) | 2 lines
+
++ Server certificate signing and pkcs12 container creation.
+
+------------------------------------------------------------------------
+r90 | anrdaemon | 2014-02-09 08:32:16 +0300 (Sun, 09 Feb 2014) | 4 lines
+
+- Fixed test expression escaping.
+- Fixed temp file creation.
++ Key file now moved out of TMPDIR.
+
+------------------------------------------------------------------------
+r88 | anrdaemon | 2014-02-08 12:15:36 +0300 (Sat, 08 Feb 2014) | 2 lines
+
++ reqServer first draft
+
+------------------------------------------------------------------------
+r87 | anrdaemon | 2014-02-08 12:02:12 +0300 (Sat, 08 Feb 2014) | 2 lines
+
+* Increased default key length to 2048 bits.
+
+------------------------------------------------------------------------
+r85 | anrdaemon | 2014-02-08 11:51:36 +0300 (Sat, 08 Feb 2014) | 2 lines
+
++ Block execution if a key exists already.
+
+------------------------------------------------------------------------
+r82 | anrdaemon | 2014-02-08 08:24:12 +0300 (Sat, 08 Feb 2014) | 2 lines
+
++ Initial addition of scripts
+
+------------------------------------------------------------------------

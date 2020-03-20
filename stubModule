@@ -1,0 +1,11 @@
+#!/bin/sh
+# @version $Id: stubModule 926 2018-11-01 23:37:47Z anrdaemon $
+
+# $0 [ optional params ] required params
+
+[ "$MCA_PROFILE" ] || {
+  "$( dirname "$0" )/minica.sh" "$( basename "$0" .mca )" "$@"
+  return $?
+}
+
+echo "mca:$_C" "$@"

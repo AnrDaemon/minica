@@ -1,0 +1,49 @@
+#!/bin/sh
+# @version $Id: exportPFX 915 2018-11-01 00:18:26Z anrdaemon $
+
+# $0 cert <path> key <path>
+
+test "$( basename "$0" )" = "minica.sh" || {
+    "$( dirname "$( readlink -e "$0" )" )/minica.sh" "$( basename "$0" )" "$@"
+    exit $?
+  }
+
+test "$MCA_CERT" || {
+  echo "mca: No certificate specified, aborting."
+  exit 2
+}
+
+test "$MCA_KEY" || {
+  echo "mca: No keyfile specified, aborting."
+  exit 2
+}
+
+_needs_pass()
+{
+  local -
+  set +e
+  ! MCA_IN= openssl rsa -passin env:MCA_IN -noout < "$1" 2> /dev/null
+}
+
+MCA_NAME="$( _name "$MCA_CERT" )"
+MCA_DATE=$( date +%Y%m%d-%H%M )
+MCA_PFX="$( mktemp "$HOME/store/${MCA_NAME}_${MCA_DATE}_XXXXXXXX.pfx" )"
+_def="$( stty --save 2> /dev/null )"
+
+trap '{ stty $_def; test -s "$MCA_PFX" || rm "$MCA_PFX";} 2> /dev/null' EXIT HUP INT ABRT TERM
+
+if _needs_pass "$MCA_KEY"; then
+  stty -echo 2> /dev/null
+  IFS= read -r -p "Enter keyfile password: " MCA_IN
+  stty $_def 2> /dev/null
+  export MCA_IN
+  printf "%s\n" "" "  ---"
+fi
+
+test "$( openssl x509 -modulus -noout -in "$MCA_CERT" )" = "$( openssl rsa -modulus -noout -in "$MCA_KEY" ${MCA_IN+-passin env:MCA_IN} )" || {
+  echo Certificate does not match the key, aborting.
+  exit 1
+}
+
+openssl pkcs12 -export -chain -CAfile "$HOME/ca.crt" -in "$MCA_CERT" -inkey "$MCA_KEY" ${MCA_IN+-passin env:MCA_IN} \
+  -out "$MCA_PFX" -name "$MCA_NAME"

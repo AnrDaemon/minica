@@ -1,0 +1,44 @@
+#!/bin/sh
+# @version $Id: viewRequest 921 2018-11-01 21:16:12Z anrdaemon $
+
+# $0 csr
+(
+  # Align names to this number of characters
+  _align=19
+  set -e
+  printf "Checking request signature: "
+  openssl req -in "$1" -verify -noout -text -reqopt no_header,no_version,no_subject,no_extensions | (
+    while IFS=: read -r _n _v; do
+      case "$_n" in
+        *Public*"Key Algorithm")
+          printf "Public key algorithm:$_v"
+          ;;
+        *"Public-Key")
+          echo "$_v"
+          ;;
+        *"Signature Algorithm")
+          echo "Signature algorithm:$_v"
+          ;;
+      esac
+    done
+  )
+
+  echo ""
+  openssl req -in "$1" -noout -subject -multivalue-rdn -nameopt utf8,lname,sep_multiline,esc_ctrl,use_quote | (
+    while IFS=" =" read -r _n _v; do
+      case "$_n" in
+        "subject") echo "The Subject's Distinguished Name is as follows:"; continue;;
+        "countryName") _n="Country name";;
+        "stateOrProvinceName") _n="State or province";;
+        "localityName") _n="Locality";;
+        "organizationName") _n="Organization";;
+        "organizationalUnitName") _n="Organizational unit";;
+        "commonName") _n="Common name";;
+        "emailAddress") _n="Contact (e-mail)";;
+        *) _n="($_n)";;
+      esac
+
+      printf "%${_align}s: %s\\n" "$_n" "$_v"
+    done
+  )
+)

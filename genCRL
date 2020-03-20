@@ -1,0 +1,40 @@
+#!/bin/sh
+# @version $Id: genCRL 915 2018-11-01 00:18:26Z anrdaemon $
+
+# $0 [ days <num> ]
+
+test "$( basename "$0" )" = "minica.sh" || {
+    "$( dirname "$( readlink -e "$0" )" )/minica.sh" "$( basename "$0" )" "$@"
+    exit $?
+  }
+
+MCA_DATE=$( date +%Y%m%d-%H%M )
+MCA_CRL="$HOME/store/ca-$MCA_DATE.crl"
+
+openssl ca -gencrl -out "$MCA_CRL"
+
+if [ -f "$HOME/crlpub.conf" ]; then
+(
+    . "$HOME/crlpub.conf"
+    _crl_path="$( readlink -e "$crl_web_path" )" || exit 1
+    _crl_name="$( basename "${crl_web_name##*/}" )"
+    test "$_crl_name" && test -d "$_crl_path" && test -w "$_crl_path" && (
+        crl_tmp="$( mktemp --tmpdir="$_crl_path" )"
+        trap 'rm "$crl_tmp" 2> /dev/null' EXIT HUP INT ABRT TERM
+        openssl crl -outform DER > "$crl_tmp" < "$MCA_CRL"
+        chmod g+r "$crl_tmp"
+        chgrp www-data "$crl_tmp"
+        mv "$crl_tmp" "$_crl_path/$_crl_name"
+      ) || exit 3
+    _crl_path="$( readlink -e "$crl_sys_path" )" || exit 1
+    _crl_name="$( basename "${crl_sys_name##*/}" )"
+    test "$_crl_name" && test -d "$_crl_path" && test -w "$_crl_path" && (
+        crl_tmp="$( mktemp --tmpdir="$_crl_path" )"
+        trap 'rm "$crl_tmp" 2> /dev/null' EXIT HUP INT ABRT TERM
+        cat "$MCA_CRL" > "$crl_tmp"
+        chmod g+r "$crl_tmp"
+        chgrp ssl-cert "$crl_tmp"
+        mv "$crl_tmp" "$_crl_path/$_crl_name"
+      ) || exit 4
+)
+fi

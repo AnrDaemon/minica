@@ -1,0 +1,10 @@
+#!/bin/sh
+# @version $Id: signClient 1046 2020-03-20 17:26:05Z anrdaemon $
+
+# $0 [ days <num> ] <CSRpath>
+
+(
+  set -- "$@" -extensions x509_client
+  . "$( dirname "$( which "$0" )" )/signCert"
+)
+

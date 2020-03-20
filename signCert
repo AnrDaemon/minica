@@ -1,0 +1,48 @@
+#!/bin/sh
+# @version $Id: signCert 928 2018-11-02 00:40:59Z anrdaemon $
+
+# $0 [ days <num> ] <CSRpath>
+
+[ "$MCA_PROFILE" ] || {
+  "$( dirname "$0" )/minica.sh" "$( basename "$0" .mca )" "$@"
+  return $?
+}
+
+test "$1" || {
+  echo "mca: Nothing to do, aborting."
+  exit 0
+} >&2
+
+MCA_REQ="$( readlink -e "$1" )" && shift || {
+  echo "mca: Unable to locate specified request."
+  exit 2
+} >&2
+
+(
+  set -- "$MCA_REQ"
+  . "${HOME}/bin/viewRequest"
+) || {
+  echo "mca: Wrong certificate request, aborting."
+  exit 1
+} >&2
+
+MCA_ENDDATE="$( TZ=UTC date --date="today +$MCA_KEYAGE days" "+%F %H:%M:00 %Z" )"
+printf "%19s: %s\\n" "Expiration date" "$MCA_ENDDATE"
+
+MCA_NAME="$( _name req "$MCA_REQ" )"
+MCA_DATE=$( date +%Y%m%d-%H%M )
+MCA_CERT="$( mktemp "$HOME/store/${MCA_NAME}_${MCA_DATE}_XXXXXXXX.crt" )"
+MCA_ERRLOG="$( mktemp --tmpdir -- "err_${MCA_DATE}_XXXXXXXX.log" )"
+
+[ "$1" = "-extensions" ] || {
+  echo "mca: signCert: No extensions specified. Using x509_base."
+  set -- "-extensions" "x509_base" "$@"
+} >&2
+
+trap '{ rm "$MCA_ERRLOG"; test -s "$MCA_CERT" || rm "$MCA_CERT";} 2> /dev/null' EXIT HUP INT ABRT TERM
+
+openssl ca -batch -in "$MCA_REQ" -out "$MCA_CERT" -enddate "$( TZ=UTC date --date="$MCA_ENDDATE" +%Y%m%d%H%M%SZ )" "$@" 2> "$MCA_ERRLOG" || {
+  cat "$MCA_ERRLOG" 2> /dev/null
+  echo "mca: Error occured while signing request."
+  exit 1
+} >&2
